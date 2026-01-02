@@ -169,10 +169,13 @@ function typeText(id, text) {
 }
 
 function hearts() {
+function flowers() {
   setInterval(() => {
     const h = document.createElement("div");
     h.className = "heart";
     h.innerHTML = "💗";
+    h.className = "flowers"
+    h.innerHTML = "🌸"
     h.style.left = Math.random()*100 + "vw";
     h.style.fontSize = (16 + Math.random()*24) + "px";
     document.getElementById("hearts").appendChild(h);
@@ -183,3 +186,4 @@ function hearts() {
 
 </body>
 </html>
+
