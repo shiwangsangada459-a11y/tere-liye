@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Yasuu 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  color: white;
+  overflow-x: hidden;
+}
+
+.page {
+  display: none;
+  min-height: 100vh;
+  padding: 40px 20px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.page.active {
+  display: flex;
+}
+
+h1 {
+  font-size: 28px;
+}
+
+p {
+  font-size: 18px;
+  max-width: 600px;
+}
+
+button {
+  margin-top: 25px;
+  padding: 14px 32px;
+  font-size: 18px;
+  border: none;
+  border-radius: 30px;
+  background: white;
+  color: #ff4f7a;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+.typing {
+  border-right: 2px solid white;
+  padding-right: 6px;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  50% { border-color: transparent; }
+}
+
+.emoji {
+  font-size: 70px;
+  animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+
+/* hearts */
+.hearts {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.heart {
+  position: absolute;
+  animation: fall 6s linear forwards;
+  font-size: 22px;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10vh); opacity: 1; }
+  100% { transform: translateY(110vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgm" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+  <h1>Ek chhoti si baat dikhani hai… 😌</h1>
+  <p>Direct nahi bolunga… thoda suspense 😏</p>
+  <button onclick="go(2)">Ready ho? 👀</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+  <h1 id="type1" class="typing"></h1>
+  <button onclick="go(3)">Aur aage… 💭</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+  <div class="emoji">🧸🌸</div>
+  <h1>Tumhe teddy pasand hai na, Yasuu? 💕</h1>
+  <p>aur flowers bhi 🌷</p>
+  <p>Isliye pehle ye dono tumhare liye 😌</p>
+  <button onclick="go(4)">Ab asli baat ❤️</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+  <h1 id="type2" class="typing"></h1>
+  <div class="hearts" id="hearts"></div>
+</div>
+
+<script>
+function go(n){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById("page"+n).classList.add("active");
+
+  if(n === 2){
+    typeText("type1",
+      "Kuch log bina kuch kahe bhi…\nbohot special hote hain 💫\n\nAur tum unmein se ek ho, Yasuu ❤️"
+    );
+  }
+
+  if(n === 4){
+    document.getElementById("bgm").play().catch(()=>{});
+    typeText("type2",
+      "Actually… aaj mera birthday hai to 🎂\n\n" +
+      "Aur specially main tumhe THANK YOU kehna chahta tha .apke liyekhaas bachaa💖\n\n" +
+      "Tumhari care, tumhari smile,\n" +
+      "tumhara hona — sab kuch bohot special hai mere liye ✨\n\n" +
+      "Ye chhota sa surprise sirf tumhare liye, Yasuu 💝"
+    );
+    hearts();
+  }
+}
+
+function typeText(id, text) {
+  let i = 0;
+  const el = document.getElementById(id);
+  el.innerHTML = "";
+  const timer = setInterval(() => {
+    el.innerHTML += text.charAt(i);
+    i++;
+    if (i >= text.length) clearInterval(timer);
+  }, 40);
+}
+
+function hearts() {
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = "💗";
+    h.style.left = Math.random()*100 + "vw";
+    h.style.fontSize = (16 + Math.random()*24) + "px";
+    document.getElementById("hearts").appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  }, 300);
+}
+</script>
+
+</body>
+</html>
